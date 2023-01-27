@@ -3,20 +3,23 @@
 var buttons = document.querySelectorAll(".drum");
 
 
-//Detecting button press
-
+/*
 document.addEventListener("click", (event) => {
     console.log(event);
 });
+*/
+
+//Detecting button press
 
 //adding to a specific element (button)
 for (let i = 0; i < buttons.length; i++) {
 
-        buttons[i].addEventListener("click", function (event) {
+        buttons[i].addEventListener("click", function () {
             
             console.log(this.innerHTML);
             //console.log(event);
             makeSound(this.innerHTML);
+            buttonAnimation(this.innerHTML);
 
     })
 }
@@ -26,9 +29,9 @@ for (let i = 0; i < buttons.length; i++) {
 //adding to the entier document
 document.addEventListener("keydown", function (event) { 
 
-            console.log(event);
+            console.log(event.key);
             makeSound(event.key);
-
+            buttonAnimation(event.key);
 });
 
 function makeSound(key){
@@ -73,6 +76,24 @@ function makeSound(key){
             break;
     }
 
+}
+
+
+
+function buttonAnimation(activeKey){
+    var activeButton = document.querySelector("."+activeKey); //.w .a .s | activeKey = w - a - s
+    
+
+    buttons.forEach(e => {
+        if(e.innerHTML === activeKey) {
+            activeButton.classList.add("pressed");
+
+            setTimeout(()=>{ 
+                activeButton.classList.remove("pressed");
+            },100);
+
+        }
+    });
 }
 
 /*
